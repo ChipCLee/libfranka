@@ -44,8 +44,8 @@ jobs:
       - name: Build mios Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./build
-          file: ./build/Dockerfile
+          context: ./
+          file: Dockerfile
           push: true
           tags: |
             ghcr.io/chipclee/libfranka:${{ github.sha }}
