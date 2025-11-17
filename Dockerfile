@@ -51,7 +51,7 @@ RUN cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF .. \
  && cpack -G DEB
 
 # Minimal final image containing only the .deb for easy docker cp
-FROM scratch AS artifact
-ARG LIBFRANKA_VERSION=0.17.0
-# Copy and rename deterministically; wildcard matches the CPack output.
-COPY --from=build /src/libfranka/build/libfranka*.deb /libfranka_${LIBFRANKA_VERSION}_amd64.deb
+# FROM scratch AS artifact
+# ARG LIBFRANKA_VERSION=0.17.0
+# # Copy and rename deterministically; wildcard matches the CPack output.
+# COPY --from=build /src/libfranka/build/libfranka*.deb /libfranka_${LIBFRANKA_VERSION}_amd64.deb
