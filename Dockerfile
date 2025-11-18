@@ -50,6 +50,18 @@ RUN cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF .. \
  && cmake --build . -j"$(nproc)" \
  && cpack -G DEB
 
+RUN addgroup realtime && usermod -a -G realtime $(whoami) 
+
+# Raise realtime group limits inside the container
+RUN cat <<'EOF' >> /etc/security/limits.conf
+@realtime soft rtprio 99
+@realtime soft priority 99
+@realtime soft memlock 102400
+@realtime hard rtprio 99
+@realtime hard priority 99
+@realtime hard memlock 102400
+EOF
+
 # Minimal final image containing only the .deb for easy docker cp
 # FROM scratch AS artifact
 # ARG LIBFRANKA_VERSION=0.17.0
